@@ -10,7 +10,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
-import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,7 +113,7 @@ public class MapDialog extends DialogFragment implements OnMapReadyCallback {
                         LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
                         mGoogleMap.clear();
                         mGoogleMap.addMarker(new MarkerOptions().position(latLng));
-                        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+                        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
                     }else{
                         LocationRequest locationRequest = new LocationRequest()
                                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -128,7 +127,7 @@ public class MapDialog extends DialogFragment implements OnMapReadyCallback {
                                 LatLng latLng = new LatLng(location1.getLatitude(),location1.getLongitude());
                                 mGoogleMap.clear();
                                 mGoogleMap.addMarker(new MarkerOptions().position(latLng));
-                                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+                                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
                             }
                         };
                         fusedLocationProviderClient.requestLocationUpdates(locationRequest,locationCallback, Looper.myLooper());
@@ -149,7 +148,7 @@ public class MapDialog extends DialogFragment implements OnMapReadyCallback {
             public void onMapClick(LatLng latLng) {
                 mGoogleMap.clear();
                 mGoogleMap.addMarker(new MarkerOptions().position(latLng));
-                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
             }
         });
 
