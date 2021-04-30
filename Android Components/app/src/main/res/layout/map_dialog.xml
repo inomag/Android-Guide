@@ -1,31 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-<!--            <com.google.android.gms.maps.MapView-->
-<!--                android:id="@+id/dialog_map"-->
-<!--                android:layout_height="600dp"-->
-<!--                android:layout_width="match_parent">-->
-<!--            </com.google.android.gms.maps.MapView>-->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/mark_loc_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:text="Mark Location"
-                android:layout_marginBottom="16dp"
-                app:cornerRadius="32dp"
-                app:backgroundTint="#291717"
-                android:paddingHorizontal="36dp"
-                android:layout_toStartOf="@id/get_current_loc"
-                android:paddingVertical="16dp"/>
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/get_current_loc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_location"
-                android:padding="12dp"
-                android:layout_alignParentEnd="true"
-                android:layout_margin="16dp"/>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    android:gravity="center">
+    <RelativeLayout
+        android:id="@+id/map_fragment_container"
+        android:layout_width="300dp"
+        android:layout_height="500dp"
+        >
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mark_loc_btn"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="32dp"
+            android:layout_height="wrap_content"
+            android:text="Mark Location"
+            android:textSize="12sp"
+            app:cornerRadius="0dp"
+            app:backgroundTint="@color/black"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            />
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/get_current_loc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_location"
+            android:padding="12dp"
+            app:cornerRadius="0dp"
+            android:elevation="32dp"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="10dp"/>
+    </RelativeLayout>
+
+
+
 </RelativeLayout>
+
+

@@ -40,32 +40,6 @@ public class MainActivity extends AppCompatActivity{
                 MapDialog mapDialog = new MapDialog();
                 mapDialog.show(getSupportFragmentManager(),"Map Dialog Box");
 
-
-//                dialog = new Dialog(v.getContext());
-//                dialog.setContentView(R.layout.map_dialog);
-//                dialog.setCancelable(true);
-//                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-//                lp.copyFrom(dialog.getWindow().getAttributes());
-//                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-//                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-//
-//                map = dialog.findViewById(R.id.dialog_map);
-//                map.onCreate(savedInstanceState);
-//                map.getMapAsync(MainActivity.this);
-//
-//                markLocBtn = dialog.findViewById(R.id.mark_loc_btn);
-//                getCurrentLoc = dialog.findViewById(R.id.get_current_loc);
-//
-//                markLocBtn.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        dialog.dismiss();
-//                    }
-//                });
-//
-//                dialog.show();
-//                dialog.getWindow().setAttributes(lp);
-
             }
         });
     }
@@ -73,14 +47,4 @@ public class MainActivity extends AppCompatActivity{
     private void initViews() {
         mapDialogBtn = findViewById(R.id.map_dialog_btn);
     }
-
-//    @Override
-//    public void onMapReady(GoogleMap googleMap) {
-//       mMap = googleMap;
-//        mMap.getUiSettings().setZoomControlsEnabled(false);
-//        mMap.getUiSettings().isMyLocationButtonEnabled();
-//        LatLng position = new LatLng(27.231775, 94.104646);
-//        mMap.addMarker(new MarkerOptions().position(position));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
-//    }
 }
