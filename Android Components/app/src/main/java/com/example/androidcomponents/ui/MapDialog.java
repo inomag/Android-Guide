@@ -35,13 +35,17 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 public class MapDialog extends DialogFragment implements OnMapReadyCallback {
 
+    public interface LocationProvider{
+        void sendLocation(String location);
+    }
+
+    public LocationProvider mLocationProvider;
     View root;
     private MapView map;
     GoogleMap mGoogleMap;
@@ -49,6 +53,7 @@ public class MapDialog extends DialogFragment implements OnMapReadyCallback {
     MaterialButton markLocation;
     AppCompatImageButton getCurrentLocation;
     private Context mContext;
+    LatLng currentLatLng;
 
     @Nullable
     @Override
@@ -57,6 +62,15 @@ public class MapDialog extends DialogFragment implements OnMapReadyCallback {
         root = inflater.inflate(R.layout.map_dialog,container,false);
         mContext = getActivity().getApplicationContext();
         markLocation = root.findViewById(R.id.mark_loc_btn);
+        markLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(currentLatLng!=null) mLocationProvider.sendLocation(currentLatLng.latitude +","+ currentLatLng.longitude);
+                else mLocationProvider.sendLocation("");
+
+                getDialog().dismiss();
+            }
+        });
         getCurrentLocation = root.findViewById(R.id.get_current_loc);
         getCurrentLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +125,7 @@ public class MapDialog extends DialogFragment implements OnMapReadyCallback {
                     Location location = task.getResult();
                     if(location!=null){
                         LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
+                        currentLatLng = latLng;
                         mGoogleMap.clear();
                         mGoogleMap.addMarker(new MarkerOptions().position(latLng));
                         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
@@ -125,6 +140,7 @@ public class MapDialog extends DialogFragment implements OnMapReadyCallback {
                             public void onLocationResult(LocationResult locationResult) {
                                 Location location1 = locationResult.getLastLocation();
                                 LatLng latLng = new LatLng(location1.getLatitude(),location1.getLongitude());
+                                currentLatLng= latLng;
                                 mGoogleMap.clear();
                                 mGoogleMap.addMarker(new MarkerOptions().position(latLng));
                                 mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
@@ -152,5 +168,16 @@ public class MapDialog extends DialogFragment implements OnMapReadyCallback {
             }
         });
 
+    }
+
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            mLocationProvider = (LocationProvider) getActivity();
+        }catch (ClassCastException e){
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }

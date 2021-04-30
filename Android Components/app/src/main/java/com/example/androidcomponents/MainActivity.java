@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.androidcomponents.ui.MapDialog;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -18,7 +19,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.button.MaterialButton;
 
-public class MainActivity extends AppCompatActivity{
+import java.util.Map;
+
+public class MainActivity extends AppCompatActivity implements MapDialog.LocationProvider{
 
     private MaterialButton mapDialogBtn,markLocBtn;
     private ImageButton getCurrentLoc;
@@ -46,5 +49,10 @@ public class MainActivity extends AppCompatActivity{
 
     private void initViews() {
         mapDialogBtn = findViewById(R.id.map_dialog_btn);
+    }
+
+    @Override
+    public void sendLocation(String location) {
+        Toast.makeText(this, location, Toast.LENGTH_SHORT).show();
     }
 }
