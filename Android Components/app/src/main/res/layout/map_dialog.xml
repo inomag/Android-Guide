@@ -3,33 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="32dp">
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <com.google.android.gms.maps.MapView
-                android:id="@+id/dialog_map"
-                android:layout_height="600dp"
-                android:layout_width="match_parent">
-            </com.google.android.gms.maps.MapView>
+<!--            <com.google.android.gms.maps.MapView-->
+<!--                android:id="@+id/dialog_map"-->
+<!--                android:layout_height="600dp"-->
+<!--                android:layout_width="match_parent">-->
+<!--            </com.google.android.gms.maps.MapView>-->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/mark_loc_btn"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:text="Mark Location"
-                android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="16dp"
                 app:cornerRadius="32dp"
                 app:backgroundTint="#291717"
                 android:paddingHorizontal="36dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginVertical="16dp"
+                android:layout_toStartOf="@id/get_current_loc"
                 android:paddingVertical="16dp"/>
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/get_current_loc"
@@ -39,18 +28,4 @@
                 android:padding="12dp"
                 android:layout_alignParentEnd="true"
                 android:layout_margin="16dp"/>
-
-
-
-        </RelativeLayout>
-
-
-
-
-
-
-
-
-    </com.google.android.material.card.MaterialCardView>
-
 </RelativeLayout>
