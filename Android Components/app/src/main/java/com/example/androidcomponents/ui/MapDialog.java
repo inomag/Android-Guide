@@ -31,7 +31,6 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -39,6 +38,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+
+import java.util.Objects;
+
 public class MapDialog extends DialogFragment implements OnMapReadyCallback {
 
     public interface LocationProvider{
@@ -47,7 +49,6 @@ public class MapDialog extends DialogFragment implements OnMapReadyCallback {
 
     public LocationProvider mLocationProvider;
     View root;
-    private MapView map;
     GoogleMap mGoogleMap;
     FusedLocationProviderClient fusedLocationProviderClient;
     MaterialButton markLocation;
@@ -60,28 +61,21 @@ public class MapDialog extends DialogFragment implements OnMapReadyCallback {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         root = inflater.inflate(R.layout.map_dialog,container,false);
-        mContext = getActivity().getApplicationContext();
+        mContext = Objects.requireNonNull(getActivity()).getApplicationContext();
         markLocation = root.findViewById(R.id.mark_loc_btn);
-        markLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(currentLatLng!=null) mLocationProvider.sendLocation(currentLatLng.latitude +","+ currentLatLng.longitude);
-                else mLocationProvider.sendLocation("");
-
-                getDialog().dismiss();
-            }
+        markLocation.setOnClickListener(v -> {
+            if(currentLatLng!=null) mLocationProvider.sendLocation(currentLatLng.latitude +","+ currentLatLng.longitude);
+            else mLocationProvider.sendLocation("");
+            Objects.requireNonNull(getDialog()).dismiss();
         });
         getCurrentLocation = root.findViewById(R.id.get_current_loc);
-        getCurrentLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED&&ActivityCompat.checkSelfPermission(mContext,Manifest.permission.ACCESS_COARSE_LOCATION)==PackageManager.PERMISSION_GRANTED){
-                    getCoordinates();
-                }else{
-                    ActivityCompat.requestPermissions(getActivity(),new String[]{
-                            Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION
-                    },100);
-                }
+        getCurrentLocation.setOnClickListener(v -> {
+            if(ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED&&ActivityCompat.checkSelfPermission(mContext,Manifest.permission.ACCESS_COARSE_LOCATION)==PackageManager.PERMISSION_GRANTED){
+                getCoordinates();
+            }else{
+                ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()),new String[]{
+                        Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION
+                },100);
             }
         });
 
@@ -111,7 +105,7 @@ public class MapDialog extends DialogFragment implements OnMapReadyCallback {
         }
         mapFragment.getMapAsync(this);
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity().getApplicationContext());
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(Objects.requireNonNull(getActivity()).getApplicationContext());
 
     }
 
